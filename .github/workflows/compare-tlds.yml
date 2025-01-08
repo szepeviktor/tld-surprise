@@ -23,6 +23,8 @@ jobs:
         -
             name: Install dependencies
             uses: ramsey/composer-install@v3
+            with:
+                dependency-versions: "highest"
         -
             name: Download TLD list from IANA
             run: |
