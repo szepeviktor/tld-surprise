@@ -1,0 +1,37 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow
+
+name: "Daily TLD comparison"
+
+on:
+    schedule:
+    - cron: '10 03  * * *'
+    workflow_dispatch: null
+
+jobs:
+    compare-tlds:
+        runs-on: ubuntu-latest
+        steps:
+        -
+            name: Checkout repository
+            uses: actions/checkout@v4
+        -
+            name: Setup PHP
+            uses: shivammathur/setup-php@v2
+            with:
+                php-version: "8.3"
+                coverage: "none"
+        -
+            name: Install dependencies
+            uses: ramsey/composer-install@v3
+        -
+            name: Download TLD list from IANA
+            run: |
+                wget 'https://data.iana.org/TLD/tlds-alpha-by-domain.txt'
+        -
+            name: Dump TLDs from prinsfrank/standards
+            run: |
+                composer run create-tld-file
+        -
+            name: Compare
+            run: |
+                diff <(grep -v '^#' tlds-alpha-by-domain.txt) tlds.txt

@@ -1,0 +1,22 @@
+{
+    "name": "szepeviktor/tld-surprise",
+    "description": "Frank's anti-TLD laser gun",
+    "require": {
+        "prinsfrank/standards": "^3.11"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "SzepeViktor\\TldSurprise\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Viktor Szépe",
+            "email": "viktor@szepe.net"
+        }
+    ],
+    "scripts": {
+        "create-tld-file": "SzepeViktor\\TldSurprise\\TopLevelDomainLister::writeFile"
+    }
+}
